@@ -86,18 +86,3 @@ GROUP BY p.category
 ORDER BY total_sales DESC;
 
 
--- -- 1. Viết truy vấn con (Subquery) để tìm sản phẩm có doanh thu cao nhất trong bảng orders
--- -- Hiển thị: product_name, total_revenue
--- SELECT p.product_name, sum(o.total_price) as total_revenue
--- FROM orders o
---          JOIN products p on o.product_id = p.product_id
--- GROUP BY p.product_name
--- ORDER BY total_revenue DESC
--- LIMIT 1;
--- -- 2. Viết truy vấn hiển thị tổng doanh thu theo từng nhóm category (dùng JOIN + GROUP BY)
--- SELECT p.category,
---        SUM(o.total_price) AS total_revenue
--- FROM orders o
---          JOIN products p
---               ON o.product_id = p.product_id
--- GROUP BY p.category;
