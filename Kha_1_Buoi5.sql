@@ -38,7 +38,7 @@ CREATE TABLE orders
 -- =========================================
 INSERT INTO products (product_id, product_name, category)
 VALUES (1, 'Laptop Dell', 'Electronics'),
-       (2, 'iPhone 15', 'Electronics'),
+       (2, 'IPhone 15', 'Electronics'),
        (3, 'Bàn học gỗ', 'Furniture'),
        (4, 'Ghế xoay', 'Furniture');
 
@@ -64,13 +64,13 @@ FROM orders;
 -- Đặt bí danh cột như sau:
 -- total_sales cho tổng doanh thu
 -- total_quantity cho tổng số lượng
-SELECT p.category, sum(total_price) as total_sale, sum(quantity) as total_quantity
+SELECT p.category, sum(total_price) as total_sales, sum(quantity) as total_quantity
 FROM orders o
          JOIN products p ON o.product_id = p.product_id
 GROUP BY p.category;
 -- 2.Chỉ hiển thị những nhóm có tổng doanh thu lớn hơn 2000
 SELECT p.category,
-       SUM(o.total_price) AS total_revenue
+       SUM(o.total_price) AS total_sales
 FROM orders o
          JOIN products p
               ON o.product_id = p.product_id
@@ -78,9 +78,26 @@ GROUP BY p.category
 HAVING SUM(o.total_price) > 2000;
 -- 3.Sắp xếp kết quả theo tổng doanh thu giảm dần
 SELECT p.category,
-       SUM(o.total_price) AS total_revenue
+       SUM(o.total_price) AS total_sales
 FROM orders o
          JOIN products p
               ON o.product_id = p.product_id
 GROUP BY p.category
-ORDER BY total_revenue DESC ;
+ORDER BY total_sales DESC;
+
+
+-- -- 1. Viết truy vấn con (Subquery) để tìm sản phẩm có doanh thu cao nhất trong bảng orders
+-- -- Hiển thị: product_name, total_revenue
+-- SELECT p.product_name, sum(o.total_price) as total_revenue
+-- FROM orders o
+--          JOIN products p on o.product_id = p.product_id
+-- GROUP BY p.product_name
+-- ORDER BY total_revenue DESC
+-- LIMIT 1;
+-- -- 2. Viết truy vấn hiển thị tổng doanh thu theo từng nhóm category (dùng JOIN + GROUP BY)
+-- SELECT p.category,
+--        SUM(o.total_price) AS total_revenue
+-- FROM orders o
+--          JOIN products p
+--               ON o.product_id = p.product_id
+-- GROUP BY p.category;
